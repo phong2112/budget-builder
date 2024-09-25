@@ -1,0 +1,31 @@
+@if (months && months.length) {
+<nz-table #basicTable>
+  <thead>
+    <tr>
+      <th>{{ months[0].title }} - {{ months[months.length - 1].title }}</th>
+      @for (month of months; track month.id) {
+      <th>{{ month?.title }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (category of months[0].categories; track category.id) {
+    <tr>
+      <td [colSpan]="months.length + 1">{{ category?.name }}</td>
+    </tr>
+    @if (category?.type !== categoryTypes.individual) {
+    <tr>
+      <td>
+        {{
+          category?.type === categoryTypes.main
+            ? "Total " + category?.name
+            : "Sub Totals"
+        }}
+      </td>
+    </tr>
+    }} @empty {
+    <li>There are no items.</li>
+    }
+  </tbody>
+</nz-table>
+}
